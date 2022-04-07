@@ -7,80 +7,46 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/Surname"
-        android:layout_width="0dp"
+        android:id="@+id/Login"
+        android:layout_width="300dp"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:hint="@string/Surname"
+        android:layout_marginTop="250dp"
+        android:hint="@string/Login"
         android:textSize="10pt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/Name"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
-        android:id="@+id/Name"
-        android:layout_width="0dp"
+        android:id="@+id/Password"
+        android:layout_width="300dp"
         android:layout_height="50dp"
-        android:gravity="center"
-        android:hint="@string/Name"
+        android:layout_marginTop="25dp"
+        android:hint="@string/Password"
+        android:password="true"
         android:textSize="10pt"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Surname"
-        app:layout_constraintBottom_toTopOf="@id/Disc"/>
-    <EditText
-        android:id="@+id/Disc"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:hint="@string/Disc"
-        android:textSize="10pt"
-        app:layout_constraintEnd_toStartOf="@id/Mark"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Name"
-        app:layout_constraintBottom_toTopOf="@id/btnAdd"/>
-    <EditText
-        android:id="@+id/Mark"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:hint="@string/Mark"
-        android:textSize="10pt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/Disc"
-        app:layout_constraintTop_toBottomOf="@id/Name"
-        app:layout_constraintBottom_toTopOf="@id/btnClear"/>
+        app:layout_constraintTop_toBottomOf="@+id/Login" />
 
     <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:text="@string/add"
-        app:layout_constraintEnd_toStartOf="@+id/btnClear"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/Disc"
-        app:layout_constraintBottom_toTopOf="@id/dbOutput"/>
+        android:id="@+id/btnEnter"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/Enter"
+        app:layout_constraintStart_toStartOf="@+id/Password"
+        app:layout_constraintTop_toBottomOf="@+id/Password" />
 
     <Button
-        android:id="@+id/btnClear"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:text="@string/clear"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnAdd"
-        app:layout_constraintTop_toBottomOf="@id/Mark"
-        app:layout_constraintBottom_toTopOf="@id/dbOutput"/>
-
-    <TableLayout
-        android:id="@+id/dbOutput"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnClear">
-
-    </TableLayout>
+        android:id="@+id/btnSign"
+        android:layout_width="140dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/Autoriz"
+        app:layout_constraintEnd_toEndOf="@+id/Password"
+        app:layout_constraintTop_toBottomOf="@+id/Password" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

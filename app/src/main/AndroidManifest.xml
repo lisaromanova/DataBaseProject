@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DataBaseProject">
         <activity
+            android:name=".MainUser"
+            android:exported="false" />
+        <activity
+            android:name=".MainAdmin"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
