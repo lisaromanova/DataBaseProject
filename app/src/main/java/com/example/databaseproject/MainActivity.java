@@ -17,8 +17,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnAdd, btnRead, btnClear;
-    EditText etName, etEmail;
+    Button btnAdd, btnClear;
+    EditText etName, etSurname, etDisc, etMark;
 
     DBHelper dbHelper;
     SQLiteDatabase database;
@@ -36,8 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnClear = (Button) findViewById(R.id.btnClear);
         btnClear.setOnClickListener(this);
 
-        etName = findViewById(R.id.etName);
-        etEmail = findViewById(R.id.etEmail);
+        etName = findViewById(R.id.Name);
+        etSurname = findViewById(R.id.Surname);
+        etDisc = findViewById(R.id.Disc);
+        etMark = findViewById(R.id.Mark);
 
         dbHelper = new DBHelper(this);
         database = dbHelper.getWritableDatabase();
@@ -50,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(DBHelper.KEY_ID);
             int nameIndex = cursor.getColumnIndex(DBHelper.KEY_NAME);
-            int emailIndex = cursor.getColumnIndex(DBHelper.KEY_MAIL);
+            int surnameIndex = cursor.getColumnIndex(DBHelper.KEY_SURNAME);
+            int discIndex = cursor.getColumnIndex(DBHelper.KEY_DISC);
+            int markIndex = cursor.getColumnIndex(DBHelper.KEY_MARK);
             TableLayout dbOutput = findViewById(R.id.dbOutput);
             dbOutput.removeAllViews();
             do {
@@ -65,17 +69,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 outputID.setText(cursor.getString(idIndex));
                 dbOutputRow.addView(outputID);
 
+                TextView outputSurname = new TextView(this);
+                params.weight = 3.0f;
+                outputSurname.setLayoutParams(params);
+                outputSurname.setText(cursor.getString(surnameIndex));
+                dbOutputRow.addView(outputSurname);
+
                 TextView outputName = new TextView(this);
                 params.weight = 3.0f;
                 outputName.setLayoutParams(params);
                 outputName.setText(cursor.getString(nameIndex));
                 dbOutputRow.addView(outputName);
 
-                TextView outputMail = new TextView(this);
+                TextView outputDisc = new TextView(this);
                 params.weight = 3.0f;
-                outputMail.setLayoutParams(params);
-                outputMail.setText(cursor.getString(emailIndex));
-                dbOutputRow.addView(outputMail);
+                outputDisc.setLayoutParams(params);
+                outputDisc.setText(cursor.getString(discIndex));
+                dbOutputRow.addView(outputDisc);
+
+                TextView outputMark = new TextView(this);
+                params.weight = 3.0f;
+                outputMark.setLayoutParams(params);
+                outputMark.setText(cursor.getString(markIndex));
+                dbOutputRow.addView(outputMark);
 
                 Button deleteBtn = new Button(this);
                 deleteBtn.setOnClickListener(this);
@@ -98,12 +114,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.btnAdd:
                 String name = etName.getText().toString();
-                String email = etEmail.getText().toString();
+                String surname = etSurname.getText().toString();
+                String disc = etDisc.getText().toString();
+                String mark = etMark.getText().toString();
                 contentValues = new ContentValues();
+                contentValues.put(DBHelper.KEY_SURNAME, surname);
                 contentValues.put(DBHelper.KEY_NAME, name);
-                contentValues.put(DBHelper.KEY_MAIL, email);
+                contentValues.put(DBHelper.KEY_DISC, disc);
+                contentValues.put(DBHelper.KEY_MARK, mark);
                 database.insert(DBHelper.TABLE_CONTACTS, null, contentValues);
                 UpdateTable();
+                etName.setText("");
+                etSurname.setText("");
+                etDisc.setText("");
+                etMark.setText("");
                 break;
 
             case R.id.btnClear:
@@ -125,13 +149,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(cursorUpdater.moveToFirst()) {
                     int idIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_ID);
                     int nameIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_NAME);
-                    int emailIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_MAIL);
+                    int surnameIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_SURNAME);
+                    int discIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_DISC);
+                    int markIndex = cursorUpdater.getColumnIndex(DBHelper.KEY_MARK);
                     int realID = 1;
                     do {
                         if (cursorUpdater.getInt(idIndex) > realID) {
                             contentValues.put(DBHelper.KEY_ID, realID);
+                            contentValues.put(DBHelper.KEY_SURNAME, cursorUpdater.getString(surnameIndex));
                             contentValues.put(DBHelper.KEY_NAME, cursorUpdater.getString(nameIndex));
-                            contentValues.put(DBHelper.KEY_MAIL, cursorUpdater.getString(emailIndex));
+                            contentValues.put(DBHelper.KEY_DISC, cursorUpdater.getString(discIndex));
+                            contentValues.put(DBHelper.KEY_MARK, cursorUpdater.getString(markIndex));
                             database.replace(DBHelper.TABLE_CONTACTS, null, contentValues);
                         }
                         realID++;

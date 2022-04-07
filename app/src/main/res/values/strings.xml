@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">DataBaseProject</string>
+    <string name="app_name">Карточка студента</string>
+    <string name="add">Добавить</string>
+    <string name="clear">Очистить</string>
+    <string name="Surname">Фамилия</string>
+    <string name="Name">Имя</string>
+    <string name="Disc">Дисциплина</string>
+    <string name="Mark">Оценка</string>
 </resources>
