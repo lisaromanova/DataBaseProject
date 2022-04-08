@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.util.Log;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -24,7 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     DBHelper dbHelper;
     SQLiteDatabase database;
-
+    String adminUser = "admin";
+    String adminPassword = "admin";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +39,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSign = (Button) findViewById(R.id.btnSign);
         btnSign.setOnClickListener(this);
 
+
         username = findViewById(R.id.Login);
         password = findViewById(R.id.Password);
 
         dbHelper = new DBHelper(this);
         database = dbHelper.getWritableDatabase();
+
+        username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    username.setHint("");
+                else
+                    username.setHint("Username");
+            }
+        });
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
+                    password.setHint("");
+                else
+                    password.setHint("Password");
+            }
+        });
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(DBHelper.KEY_LOGIN, adminUser);
+        contentValues.put(DBHelper.KEY_PASSWORD, adminPassword);
+
+        database.insert(DBHelper.TABLE_USERS, null, contentValues);
     }
 
 
@@ -57,7 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     int usernameIndex = loginCursor.getColumnIndex(DBHelper.KEY_LOGIN);
                     int passwordIndex = loginCursor.getColumnIndex(DBHelper.KEY_PASSWORD);
                     do {
-                        if (username.getText().toString().equals(loginCursor.getString(usernameIndex)) && password.getText().toString().equals(loginCursor.getString(passwordIndex))) {
+                        if(username.getText().toString().equals(adminUser) && password.getText().toString().equals(adminPassword)) {
+                            startActivity(new Intent(this, MainAdmin.class));
+                            logged = true;
+                            break;
+                        }
+                        if(username.getText().toString().equals(loginCursor.getString(usernameIndex)) && password.getText().toString().equals(loginCursor.getString(passwordIndex))){
                             startActivity(new Intent(this, MainUser.class));
                             logged = true;
                             break;
@@ -90,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 signCursor.close();
                 break;
+
+        }
         }
     }
-}
