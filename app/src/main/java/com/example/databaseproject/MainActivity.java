@@ -8,14 +8,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.util.Log;
+
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -46,21 +42,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         dbHelper = new DBHelper(this);
         database = dbHelper.getWritableDatabase();
 
-        username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    username.setHint("");
-                else
-                    username.setHint("Username");
-            }
+        username.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus)
+                username.setHint("");
+            else
+                username.setHint("Username");
         });
-        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    password.setHint("");
-                else
-                    password.setHint("Password");
-            }
+        password.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus)
+                password.setHint("");
+            else
+                password.setHint("Password");
         });
 
         ContentValues contentValues = new ContentValues();

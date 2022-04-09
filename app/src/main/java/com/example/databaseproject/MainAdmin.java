@@ -44,40 +44,32 @@ public class MainAdmin extends AppCompatActivity implements View.OnClickListener
         dbHelper = new DBHelper(this);
         database = dbHelper.getWritableDatabase();
 
-        etName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    etName.setHint("");
-                else
-                    etName.setHint("Name");
-            }
+        etName.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus)
+                etName.setHint("");
+            else
+                etName.setHint("Name");
         });
 
-        etSurname.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    etSurname.setHint("");
-                else
-                    etSurname.setHint("Surname");
-            }
+        etSurname.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus)
+                etSurname.setHint("");
+            else
+                etSurname.setHint("Surname");
         });
 
-        etDisc.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    etDisc.setHint("");
-                else
-                    etDisc.setHint("Discipline");
-            }
+        etDisc.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus)
+                etDisc.setHint("");
+            else
+                etDisc.setHint("Discipline");
         });
 
-        etMark.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus)
-                    etMark.setHint("");
-                else
-                    etMark.setHint("Mark");
-            }
+        etMark.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus)
+                etMark.setHint("");
+            else
+                etMark.setHint("Mark");
         });
         UpdateTable();
     }
@@ -204,8 +196,11 @@ public class MainAdmin extends AppCompatActivity implements View.OnClickListener
                         database.delete(DBHelper.TABLE_CONTACTS, DBHelper.KEY_ID + " = ?", new String[]{cursorUpdater.getString(idIndex)});
                     }
                     UpdateTable();
+
                 }
+                cursorUpdater.close();
                 break;
+
         }
     }
 
